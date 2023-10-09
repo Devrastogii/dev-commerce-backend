@@ -76,20 +76,7 @@ def productShow():
 
         data['description'] = data['description'].apply(lambda x: x.replace('[', ''))
         data['description'] = data['description'].apply(lambda x: x.replace(']', ''))
-        data['ram'] = data['name']
-        data['description'] = data['description'].apply(lambda x: x.split(","))          
-        data['brand'] = data['name'].apply(lambda x: x.split(" "))   
-        data['brand'] = data['brand'].apply(lambda x: x[0])   
-
-        brand = []     
-        ram = []  
-        brand = np.unique(data['brand'])        
-
-        if productID == 0:
-            data['ram'] = data['ram'].apply(lambda x: x.replace(")","").split(","))     
-            data['ram'] = data['ram'].apply(lambda x: x[-1])    
-            data['battery'] = data['description']                        
-            ram = np.unique(data['ram'])          
+        data['description'] = data['description'].apply(lambda x: x.split(","))                                        
 
         export_dict = {
             'name': list(data['name']),
@@ -99,9 +86,7 @@ def productShow():
             'total_ratings': list(data['total_ratings']), 
             'rating': list(data['rating']),
             'description': list(data['description']),
-            'uid': list(data['u_id']),
-            'brand': list(brand),
-            'ram': list(ram)        
+            'uid': list(data['u_id']),           
         }              
         
         return json.dumps(export_dict)
